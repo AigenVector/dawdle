@@ -1,4 +1,4 @@
-package com.aigenvector.dawdle;
+package com.aigenvector.dawdle.dialog;
 
 import java.awt.BorderLayout;
 import java.awt.Point;
@@ -18,9 +18,13 @@ import javax.swing.JRootPane;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
+import com.aigenvector.dawdle.FlashCoordinateManager;
+import com.aigenvector.dawdle.PropertyManager;
+
 public class CoordinateDialog extends JDialog {
 
   private static final long serialVersionUID = 1L;
+  private final String _logPrefix = "com.aigenvector.dawdle.dialog.CoordinateDialog: ";
   private final String _message = "";
   private JTextField _x = null;
   private JTextField _y = null;
@@ -43,7 +47,7 @@ public class CoordinateDialog extends JDialog {
 
     // Create a button
     JPanel buttonPane = new JPanel();
-    JButton button = new JButton("Close me");
+    JButton button = new JButton("Add");
     buttonPane.add(button);
     // set action listener on the button
     button.addActionListener(new MyActionListener());
@@ -75,9 +79,25 @@ public class CoordinateDialog extends JDialog {
 
     //close and dispose of the window.
     public void actionPerformed(ActionEvent e) {
-      System.out.println("disposing the window..");
+    	String xCoord = _x.getText();
+    	String yCoord = _y.getText();
+    	int x = -1;
+    	int y = -1;
+    	try {
+    		x = Integer.parseInt(xCoord);
+    		y = Integer.parseInt(yCoord);
+    	} catch(NumberFormatException nfe) {
+    		log("Error parsing coordinate.");
+    	}
+    	if(x > 0 && y > 0) {
+    		FlashCoordinateManager.getInstance().addPoint(x, y);
+    	}
       setVisible(false);
       dispose();
     }
+  }
+  
+  private void log(String rhs) {
+	  System.out.println(_logPrefix + rhs);
   }
 }

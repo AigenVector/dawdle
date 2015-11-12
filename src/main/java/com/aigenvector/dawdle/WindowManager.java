@@ -10,6 +10,10 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.ImageIcon;
 import javax.swing.ButtonGroup;
 import javax.swing.KeyStroke;
+
+import com.aigenvector.dawdle.actionlistener.AddFlashListener;
+import com.aigenvector.dawdle.actionlistener.OpenImageListener;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
