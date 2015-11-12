@@ -21,6 +21,11 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>net.revelc.code</groupId>
+        <artifactId>formatter-maven-plugin</artifactId>
+        <version>0.5.3-SNAPSHOT</version>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>2.4</version>
@@ -35,5 +40,14 @@
         </configuration>
       </plugin>
     </plugins>
+    <resources>
+      <resource>
+        <directory>./resources</directory>
+        <includes>
+          <include>application.properties</include>
+          <include>test.png</include>
+        </includes>
+      </resource>
+    </resources>
   </build>
 </project>
