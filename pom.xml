@@ -45,6 +45,7 @@
         <directory>./resources</directory>
         <includes>
           <include>application.properties</include>
+          <include>test.png</include>
         </includes>
       </resource>
     </resources>
