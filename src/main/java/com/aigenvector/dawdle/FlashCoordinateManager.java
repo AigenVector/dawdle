@@ -30,4 +30,22 @@ public class FlashCoordinateManager {
 	public void clear() {
 		_pointCollect.clear();
 	}
+
+	public void removePoint(int x, int y) {
+		System.out.println("Removing coordinate "+x+", "+y);
+		boolean found = false;
+		for(int i = 0; i < _pointCollect.size(); i++) {
+			if(_pointCollect.get(i)[0] == x && 
+					_pointCollect.get(i)[1] == y) {
+				_pointCollect.remove(i);
+				found = true;
+				break;
+			}
+		}
+		System.out.println("Removed coordinate? "+x+", "+y+" - result: "+found);
+	}
+	
+	public ArrayList<int[]> getPoints() {
+		return _pointCollect;
+	}
 }

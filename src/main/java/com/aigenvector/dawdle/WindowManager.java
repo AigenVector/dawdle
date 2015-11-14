@@ -13,6 +13,7 @@ import javax.swing.KeyStroke;
 
 import com.aigenvector.dawdle.actionlistener.AddFlashListener;
 import com.aigenvector.dawdle.actionlistener.OpenImageListener;
+import com.aigenvector.dawdle.actionlistener.StartListener;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -65,6 +66,15 @@ public class WindowManager {
     menuItem.getAccessibleContext().setAccessibleDescription(
             "Adds coordinate for flash during experiment.");
     menuItem.addActionListener(new AddFlashListener(frame));
+    menu.add(menuItem);
+    
+    menuItem = new JMenuItem("Start Experiment",
+            KeyEvent.VK_SPACE);
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(
+    		KeyEvent.VK_SPACE, ActionEvent.CTRL_MASK));
+    menuItem.getAccessibleContext().setAccessibleDescription(
+    		"Start that shit.");
+    menuItem.addActionListener(new StartListener(_canvas));
     menu.add(menuItem);
 
     menuItem = new JMenuItem("Export to Excel",
