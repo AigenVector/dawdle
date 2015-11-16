@@ -1,14 +1,5 @@
 package com.aigenvector.dawdle;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
-
-import javax.swing.JComponent;
-import javax.swing.Timer;
-
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -16,6 +7,10 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
+
+import javax.swing.JComponent;
+import javax.swing.Timer;
 
 public class Canvas extends JComponent {
 
@@ -25,7 +20,6 @@ public class Canvas extends JComponent {
   private Timer cleanUpTimer = null;
 
   public Canvas() {
-    log("background-image: "+PropertyManager.getInstance().getValue("background-image"));
     Image img = Toolkit.getDefaultToolkit().getImage(PropertyManager.getInstance().getValue("background-image"));
     log(Boolean.toString((img == null)));
   }
@@ -41,8 +35,7 @@ public class Canvas extends JComponent {
     		g2.setColor(java.awt.Color.RED);
     		g2.fill(a);
     	}
-    	System.out.println("Clearing the flashes.");
-    	cleanUpTimer = new Timer(20, new CleanupFlash(this));
+    	cleanUpTimer = new Timer(Integer.parseInt(PropertyManager.getInstance().getValue("random.display.length")), new CleanupFlash(this));
     	cleanUpTimer.start();
     	cleanUpTimer.setRepeats(false);
     	flashes.clear();
@@ -62,8 +55,8 @@ public class Canvas extends JComponent {
   public void randomFlash() {
 	  for(int[] a : FlashCoordinateManager.getInstance().getPoints()) {
 		  flashes.add(new Ellipse2D.Double(a[0], a[1],
-                  20,
-                  20));
+				  Integer.parseInt(PropertyManager.getInstance().getValue("random.display.width")),
+				  Integer.parseInt(PropertyManager.getInstance().getValue("random.display.height"))));
 	  }
 	  this.repaint();
   }
@@ -76,7 +69,6 @@ public class Canvas extends JComponent {
 	  }
 	  
 	  public void actionPerformed(ActionEvent e) {
-		  System.out.println("Cleanup timer called.");
 		  refresher.repaint();  
 	  }
   }

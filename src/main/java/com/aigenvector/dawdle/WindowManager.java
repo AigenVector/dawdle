@@ -12,8 +12,11 @@ import javax.swing.ButtonGroup;
 import javax.swing.KeyStroke;
 
 import com.aigenvector.dawdle.actionlistener.AddFlashListener;
+import com.aigenvector.dawdle.actionlistener.ExportListener;
 import com.aigenvector.dawdle.actionlistener.OpenImageListener;
+import com.aigenvector.dawdle.actionlistener.ResetListener;
 import com.aigenvector.dawdle.actionlistener.StartListener;
+import com.aigenvector.dawdle.actionlistener.StopListener;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -59,7 +62,7 @@ public class WindowManager {
     menuItem.addActionListener(new OpenImageListener());
     menu.add(menuItem);
 
-    menuItem = new JMenuItem("Add Flash Coordinate",
+    menuItem = new JMenuItem("Manage Flash Coordinate(s)",
                              KeyEvent.VK_A);
     menuItem.setAccelerator(KeyStroke.getKeyStroke(
             KeyEvent.VK_A, ActionEvent.ALT_MASK));
@@ -68,13 +71,20 @@ public class WindowManager {
     menuItem.addActionListener(new AddFlashListener(frame));
     menu.add(menuItem);
     
-    menuItem = new JMenuItem("Start Experiment",
-            KeyEvent.VK_SPACE);
+    menuItem = new JMenuItem("Start Experiment");
     menuItem.setAccelerator(KeyStroke.getKeyStroke(
-    		KeyEvent.VK_SPACE, ActionEvent.CTRL_MASK));
+    		KeyEvent.VK_SPACE, ActionEvent.ALT_MASK));
     menuItem.getAccessibleContext().setAccessibleDescription(
     		"Start that shit.");
     menuItem.addActionListener(new StartListener(_canvas));
+    menu.add(menuItem);
+    
+    menuItem = new JMenuItem("Stop Experiment");
+    menuItem.setAccelerator(KeyStroke.getKeyStroke(
+    		KeyEvent.VK_SPACE, ActionEvent.CTRL_MASK));
+    menuItem.getAccessibleContext().setAccessibleDescription(
+    		"Stahppppit");
+    menuItem.addActionListener(new StopListener());
     menu.add(menuItem);
 
     menuItem = new JMenuItem("Export to Excel",
@@ -83,29 +93,15 @@ public class WindowManager {
             KeyEvent.VK_X, ActionEvent.ALT_MASK));
     menuItem.getAccessibleContext().setAccessibleDescription(
             "Exports recorded results to an Excel file of your choice.");
+    menuItem.addActionListener(new ExportListener());
     menu.add(menuItem);
 
-    menuItem = new JMenuItem("Reset recording", KeyEvent.VK_R);
+    menuItem = new JMenuItem("Reset Recording", KeyEvent.VK_R);
     menuItem.setMnemonic(KeyEvent.VK_R);
     menuItem.setAccelerator(KeyStroke.getKeyStroke(
             KeyEvent.VK_R, ActionEvent.ALT_MASK));
+    menuItem.addActionListener(new ResetListener());
     menu.add(menuItem);
-
-    //a group of checkbox questions
-    menu.addSeparator();
-    ButtonGroup group = new ButtonGroup();
-    cbMenuItem = new JCheckBoxMenuItem("Log details?");
-    cbMenuItem.setState(new Boolean(PropertyManager.getInstance().getValue("log.detail")));
-    cbMenuItem.setMnemonic(KeyEvent.VK_L);
-    group.add(cbMenuItem);
-    menu.add(cbMenuItem);
-
-    //Build edit menu
-    menu = new JMenu("Edit");
-    menu.setMnemonic(KeyEvent.VK_N);
-    menu.getAccessibleContext().setAccessibleDescription(
-            "This menu doesn't do anything yet...");
-    menuBar.add(menu);
 
     frame.setJMenuBar(menuBar);
 

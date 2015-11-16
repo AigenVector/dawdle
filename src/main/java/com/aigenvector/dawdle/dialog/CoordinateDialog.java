@@ -39,7 +39,7 @@ public class CoordinateDialog extends JDialog implements ListSelectionListener {
 	private JTextField _y = null;
 
 	public CoordinateDialog(JFrame parent) {
-		super(parent, PropertyManager.getInstance().getValue("coordinate.title"));
+		super(parent, "Manage Flash Coordinate(s)");
 		this.setMinimumSize(new Dimension(300, 200));
 		this.setMaximumSize(new Dimension(300, 200));
 		Point p = new Point(parent.getWidth() / 2 - 100, parent.getHeight() / 2 - 300);
@@ -52,14 +52,13 @@ public class CoordinateDialog extends JDialog implements ListSelectionListener {
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.addListSelectionListener(this);
 		list.setVisibleRowCount(5);
+		for(int[] ele : FlashCoordinateManager.getInstance().getPoints()) {
+			listModel.addElement(ele[0] + ", " + ele[1]);
+		}
+		
 		JScrollPane listScrollPane = new JScrollPane(list);
 		getContentPane().add(listScrollPane, BorderLayout.PAGE_START);
-
-		// JPanel messagePane = new JPanel();
-		// messagePane.add(new
-		// JLabel(PropertyManager.getInstance().getValue("coordinate.message")));
-		// getContentPane().add(messagePane, BorderLayout.PAGE_START);
-
+		
 		JPanel inputgroup = new JPanel();
 		_x = new JTextField(4);
 		inputgroup.add(_x);
