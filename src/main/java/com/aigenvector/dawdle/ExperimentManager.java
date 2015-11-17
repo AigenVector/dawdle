@@ -15,12 +15,14 @@ public class ExperimentManager {
   private Canvas _canvas;
   private Timer timer;
   private ArrayList<Long> _distractionTimes = null;
+  private ArrayList<Integer> _startupDistractionIndices = null;
   private boolean isStopped = false;
   
   private ExperimentManager() {
 	  randomGen = new Random();
 	  randomGen.setSeed(new Date().getTime());
 	  _distractionTimes = new ArrayList<Long>();
+	  _startupDistractionIndices = new ArrayList<Integer>();
 	  timer = new Timer(randomGen.nextInt(Integer.parseInt(PropertyManager.getInstance().getValue("random.max.interval"))), new TimerListener());
 	  timer.setRepeats(false);
   }
@@ -40,6 +42,8 @@ public class ExperimentManager {
 	  System.out.println("Experiment started.");
 	  _canvas = canv;
 	  isStopped = false;
+    _startupDistractionIndices.add(this._distractionTimes.size());
+    addDistractionTime();
 	  timer.start();
   }
   
@@ -65,6 +69,7 @@ public class ExperimentManager {
   public void resetExperiment() {
 	  System.out.println("Experiment reset.");
 	  this._distractionTimes.clear();
+	  this._startupDistractionIndices.clear();
   }
   
   public void addDistractionTime() {
@@ -73,6 +78,10 @@ public class ExperimentManager {
   
   public ArrayList<Long> getDistractionTimes() {
 	  return this._distractionTimes;
+  }
+
+  public ArrayList<Integer> getDistractionStartupIndices() {
+	  return this._startupDistractionIndices;
   }
   
 }

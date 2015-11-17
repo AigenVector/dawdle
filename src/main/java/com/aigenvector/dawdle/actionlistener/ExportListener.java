@@ -52,10 +52,14 @@ public class ExportListener implements ActionListener {
 					
 					int rowCounter = 0;
 					for (Long dTime : ExperimentManager.getInstance().getDistractionTimes()) {
-						r = s.createRow(rowCounter++);
+						r = s.createRow(rowCounter);
 						c = r.createCell(0);
 						c.setCellValue(new Date(dTime));
 						c.setCellStyle(cellStyle);
+            if(ExperimentManager.getInstance().getDistractionStartupIndices().contains(rowCounter++)) {
+              c = r.createCell(1);
+              c.setCellValue(" started.");
+            }
 					}
 					s.autoSizeColumn(0);
 					wb.write(output);
